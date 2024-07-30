@@ -1,0 +1,28 @@
+target_sources(pulse-ecu
+    PRIVATE
+        uds_server.cpp
+        uds_session.cpp
+        transport/isotp.cpp
+        services/diagnostic_session_control.cpp
+        services/ecu_reset.cpp
+        services/tester_present.cpp
+        services/security_access.cpp
+        services/read_data_by_identifier.cpp
+        services/write_data_by_identifier.cpp
+        services/read_memory_by_address.cpp
+        services/write_memory_by_address.cpp
+        services/routine_control.cpp
+        services/request_download.cpp
+        services/request_upload.cpp
+        services/transfer_data.cpp
+        services/request_transfer_exit.cpp
+        services/clear_diagnostic_information.cpp
+        services/read_dtc_information.cpp
+        services/control_dtc_setting.cpp
+        services/communication_control.cpp
+        services/link_control.cpp
+        services/response_on_event.cpp
+        services/io_control_by_identifier.cpp
+        dtc/dtc_manager.cpp
+        utils/crc.cpp
+)
