@@ -259,3 +259,5 @@ void IsoTp::update()
 
 } // namespace transport
 } // namespace uds
+
+// Note: N_Cr timeout reset on each CF handled in handle_cf()
