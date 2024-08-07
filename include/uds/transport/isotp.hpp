@@ -104,3 +104,11 @@ private:
 
 } // namespace transport
 } // namespace uds
+
+// Helper to convert ST_MIN byte to milliseconds
+inline uint32_t st_min_to_ms(uint8_t st_min) {
+    if (st_min <= 0x7F) return st_min;          // 0-127ms
+    if (st_min >= 0xF1 && st_min <= 0xF9)       // 100-900us -> round to 1ms
+        return 1;
+    return 1;
+}
