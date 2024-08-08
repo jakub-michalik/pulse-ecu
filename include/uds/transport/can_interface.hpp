@@ -13,19 +13,22 @@ struct CanFrame {
     bool     is_extended_id;
 };
 
-// Abstract CAN bus interface - implement for your specific hardware
+// Abstract CAN interface - user must provide concrete implementation
 class ICanInterface {
 public:
     virtual ~ICanInterface() = default;
 
-    // Send a CAN frame - returns true on success
+    // Transmit a frame. Returns true on success.
     virtual bool send(const CanFrame& frame) = 0;
 
-    // Receive a CAN frame - returns true if a frame was received
+    // Try to receive a frame. Returns true if frame was available.
     virtual bool receive(CanFrame& frame) = 0;
 
-    // Get current time in milliseconds (used for timeouts)
+    // Monotonic millisecond tick counter.
     virtual uint32_t get_tick_ms() = 0;
+
+    // Optional: called when ISO-TP layer is idle (can be used for power saving)
+    virtual void on_idle() { }
 };
 
 } // namespace transport
