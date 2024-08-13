@@ -12,8 +12,12 @@ UdsSession::UdsSession(const TimingConfig& timing)
 
 bool UdsSession::transition(SessionType new_session)
 {
-    // From default session, any session change is allowed
-    // From non-default sessions, only same or default is allowed without special conditions
+    // Programming session can only be entered from default
+    if (new_session == SessionType::Programming &&
+        m_session != SessionType::Default) {
+        return false;
+    }
+
     m_session   = new_session;
     m_timed_out = false;
     return true;
@@ -21,18 +25,22 @@ bool UdsSession::transition(SessionType new_session)
 
 void UdsSession::reset()
 {
-    m_session   = SessionType::Default;
-    m_timed_out = false;
+    m_session     = SessionType::Default;
+    m_timed_out   = false;
+    m_s3_deadline = 0;
 }
 
 void UdsSession::update(uint32_t tick_ms)
 {
-    if (m_session == SessionType::Default)
+    if (m_session == SessionType::Default) {
+        m_s3_deadline = 0;
+        m_timed_out   = false;
         return;
+    }
 
-    if (m_s3_deadline > 0 && tick_ms > m_s3_deadline) {
-        m_timed_out = true;
-        m_session   = SessionType::Default;
+    if (m_s3_deadline != 0 && tick_ms >= m_s3_deadline) {
+        m_timed_out   = true;
+        m_session     = SessionType::Default;
         m_s3_deadline = 0;
     }
 }
