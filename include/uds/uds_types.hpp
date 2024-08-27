@@ -103,3 +103,11 @@ static constexpr size_t kMaxUdsPayload = 4096;
 using UdsBuffer = StaticBuffer<kMaxUdsPayload>;
 
 } // namespace uds
+
+// Service-specific timing constants
+namespace timing {
+    static constexpr uint16_t kP2DefaultMs   = 50;
+    static constexpr uint16_t kP2ProgramMs   = 200;
+    static constexpr uint16_t kP2StarDefaultMs = 5000;
+    static constexpr uint16_t kS3DefaultMs   = 5000;
+}
