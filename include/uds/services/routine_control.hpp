@@ -58,3 +58,12 @@ private:
 };
 
 } // namespace uds
+
+namespace routine_id {
+    // Standardized routine identifiers
+    static constexpr uint16_t kEraseMemory         = 0xFF00;
+    static constexpr uint16_t kCheckProgrammingDep = 0xFF01;
+    static constexpr uint16_t kCheckMemory         = 0x0202;
+    static constexpr uint16_t kEraseFlashSector    = 0x0301;
+    static constexpr uint16_t kVerifyFlash         = 0x0302;
+}
