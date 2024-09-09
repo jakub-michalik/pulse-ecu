@@ -92,3 +92,18 @@ void ReadDtcInformationService::handle_report_count(
 }
 
 } // namespace uds
+
+// Snapshot record support added
+static bool write_dtc_snapshot_id_cb(const dtc::DtcEntry& e, void* ctx)
+{
+    DtcWriteCtx* c = reinterpret_cast<DtcWriteCtx*>(ctx);
+    if (e.snapshot_len == 0) return true;
+    if (c->pos + 5 > c->max) return false;
+
+    c->buf[c->pos++] = static_cast<uint8_t>((e.dtc_code >> 16) & 0xFF);
+    c->buf[c->pos++] = static_cast<uint8_t>((e.dtc_code >>  8) & 0xFF);
+    c->buf[c->pos++] = static_cast<uint8_t>( e.dtc_code        & 0xFF);
+    c->buf[c->pos++] = e.status;
+    c->buf[c->pos++] = 0x01; // snapshot record number
+    return true;
+}
