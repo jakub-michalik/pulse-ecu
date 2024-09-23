@@ -36,19 +36,17 @@ void UdsServer::process()
 {
     uint32_t tick = get_tick();
 
-    // Poll for received CAN frames
-    transport::CanFrame frame;
-    while (true) {
-        // ISO-TP will call process_frame internally if we feed it frames
-        // For now, check if data is ready
-        if (m_transport.data_available()) {
-            size_t len = m_transport.get_data(m_req_buf, sizeof(m_req_buf));
-            if (len > 0) {
-                m_session.keep_alive(tick);
-                handle_request(m_req_buf, len);
-            }
+    if (m_transport.data_available()) {
+        size_t len = m_transport.get_data(m_req_buf, sizeof(m_req_buf));
+        if (len > 0) {
+            m_session.keep_alive(tick);
+            handle_request(m_req_buf, len);
         }
-        break;
+    }
+
+    // Check session timeout
+    if (m_session.is_timed_out()) {
+        // Session was reset to default - nothing to do here
     }
 
     m_transport.update();
@@ -60,6 +58,12 @@ void UdsServer::handle_request(const uint8_t* data, size_t len)
     if (len == 0) return;
 
     ServiceId sid = static_cast<ServiceId>(data[0]);
+
+    // Check if it's a valid SID range
+    if (data[0] < 0x10) {
+        send_nrc(sid, NrcCode::ServiceNotSupported);
+        return;
+    }
 
     for (size_t i = 0; i < m_service_count; ++i) {
         if (m_services[i]->service_id() == sid) {
