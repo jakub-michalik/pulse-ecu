@@ -37,3 +37,13 @@ protected:
 };
 
 } // namespace uds
+
+// Helper: check if suppress positive response bit is set (bit 7 of subfunc)
+inline bool is_suppress_positive_response(uint8_t sub_func_byte) {
+    return (sub_func_byte & 0x80) != 0;
+}
+
+// Helper: get subfunc value without suppress bit
+inline uint8_t get_sub_func(uint8_t sub_func_byte) {
+    return sub_func_byte & 0x7F;
+}
