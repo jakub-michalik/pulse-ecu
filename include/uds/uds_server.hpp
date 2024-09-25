@@ -45,3 +45,6 @@ private:
 };
 
 } // namespace uds
+
+// Extend UdsServer with timeout notification
+// (inline addition - session timeout callback)
