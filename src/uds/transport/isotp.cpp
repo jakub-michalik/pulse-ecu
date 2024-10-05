@@ -264,3 +264,5 @@ void IsoTp::update()
 
 } // namespace transport
 } // namespace uds
+
+// Guard: MAX_PAYLOAD checked in handle_cf before memcpy (overflow protection)
