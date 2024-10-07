@@ -111,3 +111,13 @@ namespace timing {
     static constexpr uint16_t kP2StarDefaultMs = 5000;
     static constexpr uint16_t kS3DefaultMs   = 5000;
 }
+
+namespace nrc {
+    // Common aliases for NRC codes
+    using enum NrcCode;
+
+    // Vendor defined range: 0xF0 - 0xFE
+    static constexpr uint8_t kVoltageOutOfRange         = 0xF0;
+    static constexpr uint8_t kTemperatureOutOfRange      = 0xF1;
+    static constexpr uint8_t kChecksumError              = 0xF2;
+}
