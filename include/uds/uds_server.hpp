@@ -48,3 +48,6 @@ private:
 
 // Extend UdsServer with timeout notification
 // (inline addition - session timeout callback)
+
+// Returns number of registered services
+// (appended to class inline - full rewrite in separate commit)
