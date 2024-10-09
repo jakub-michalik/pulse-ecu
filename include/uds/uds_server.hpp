@@ -15,12 +15,17 @@ class UdsServer {
 public:
     UdsServer(transport::IsoTp& transport, const TimingConfig& timing = kDefaultTiming);
 
-    // Provide tick source for timing - fn(ctx) returns ms
     void set_tick_provider(uint32_t (*fn)(void*), void* ctx);
 
+    // Register a service handler (does not take ownership)
+    // Returns false if SID already registered or max services reached
     bool register_service(IService* service);
 
-    // Call from main loop or task as often as possible
+    // Find registered service by SID - returns nullptr if not found
+    IService* find_service(ServiceId sid) const;
+
+    size_t service_count() const { return m_service_count; }
+
     void process();
 
     UdsSession& session() { return m_session; }
@@ -45,9 +50,3 @@ private:
 };
 
 } // namespace uds
-
-// Extend UdsServer with timeout notification
-// (inline addition - session timeout callback)
-
-// Returns number of registered services
-// (appended to class inline - full rewrite in separate commit)

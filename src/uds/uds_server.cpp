@@ -28,8 +28,24 @@ bool UdsServer::register_service(IService* service)
 {
     if (!service || m_service_count >= kMaxServices)
         return false;
+
+    // Check for duplicate SID
+    for (size_t i = 0; i < m_service_count; ++i) {
+        if (m_services[i]->service_id() == service->service_id())
+            return false;
+    }
+
     m_services[m_service_count++] = service;
     return true;
+}
+
+IService* UdsServer::find_service(ServiceId sid) const
+{
+    for (size_t i = 0; i < m_service_count; ++i) {
+        if (m_services[i]->service_id() == sid)
+            return m_services[i];
+    }
+    return nullptr;
 }
 
 void UdsServer::process()
@@ -44,11 +60,6 @@ void UdsServer::process()
         }
     }
 
-    // Check session timeout
-    if (m_session.is_timed_out()) {
-        // Session was reset to default - nothing to do here
-    }
-
     m_transport.update();
     m_session.update(tick);
 }
@@ -59,25 +70,18 @@ void UdsServer::handle_request(const uint8_t* data, size_t len)
 
     ServiceId sid = static_cast<ServiceId>(data[0]);
 
-    // Check if it's a valid SID range
-    if (data[0] < 0x10) {
+    IService* svc = find_service(sid);
+    if (!svc) {
         send_nrc(sid, NrcCode::ServiceNotSupported);
         return;
     }
 
-    for (size_t i = 0; i < m_service_count; ++i) {
-        if (m_services[i]->service_id() == sid) {
-            size_t resp_len = sizeof(m_resp_buf);
-            bool do_send = m_services[i]->handle(
-                data, len, m_resp_buf, resp_len, m_session);
-            if (do_send && resp_len > 0) {
-                send_response(m_resp_buf, resp_len);
-            }
-            return;
-        }
-    }
+    size_t resp_len = sizeof(m_resp_buf);
+    bool do_send = svc->handle(data, len, m_resp_buf, resp_len, m_session);
 
-    send_nrc(sid, NrcCode::ServiceNotSupported);
+    if (do_send && resp_len > 0) {
+        send_response(m_resp_buf, resp_len);
+    }
 }
 
 void UdsServer::send_response(const uint8_t* data, size_t len)
