@@ -7,21 +7,18 @@ namespace uds {
 
 static constexpr size_t kMaxSecurityLevels = 8;
 static constexpr uint8_t kMaxAttempts      = 3;
-static constexpr uint32_t kDelayAfterFail  = 10000; // 10 seconds
+static constexpr uint32_t kDelayAfterFail  = 10000; // 10 seconds in ms
 
 struct SecurityLevel {
-    uint8_t level;          // Odd number: requestSeed subfunction
-    uint8_t seed_len;       // Seed length in bytes
+    uint8_t level;       // odd requestSeed subfunction
+    uint8_t seed_len;
 
-    // Generate seed - fill seed_buf with random seed, return length
     size_t (*generate_seed)(uint8_t* seed_buf, size_t max_len, void* ctx);
 
-    // Verify key - return true if key is valid for given seed
     bool (*verify_key)(const uint8_t* seed, size_t seed_len,
                        const uint8_t* key,  size_t key_len,
                        void* ctx);
 
-    // Required session for this level
     SessionType required_session;
     void*       ctx;
 };
@@ -41,7 +38,7 @@ public:
         size_t&        resp_len,
         UdsSession&    session) override;
 
-    // Call periodically with current tick - handles delay timer
+    // Call periodically with current tick_ms - handles delay timer
     void update(uint32_t tick_ms);
 
     bool is_unlocked(uint8_t level) const;
@@ -57,12 +54,12 @@ private:
         uint32_t locked_until;
     };
 
-    LevelState*       find_level(uint8_t level);
-    const LevelState* find_level(uint8_t level) const;
+    LevelState* find_level(uint8_t level);
 
     LevelState m_levels[kMaxSecurityLevels];
     size_t     m_level_count;
     uint8_t    m_active_level;
+    uint32_t   m_current_tick;
 };
 
 } // namespace uds
