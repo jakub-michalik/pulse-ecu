@@ -138,3 +138,5 @@ bool SecurityAccessService::handle(
 }
 
 } // namespace uds
+
+// Note: fail_count reset on both successful unlock AND delay expiry (in update())
