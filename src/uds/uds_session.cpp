@@ -60,3 +60,6 @@ void UdsSession::keep_alive(uint32_t tick_ms)
 }
 
 } // namespace uds
+
+// Note: In default session, s3 timer is not started.
+// The S3 timer only runs when in non-default sessions.
