@@ -12,6 +12,7 @@ target_sources(pulse-ecu
         services/read_memory_by_address.cpp
         services/write_memory_by_address.cpp
         services/routine_control.cpp
+        services/flash_routine.cpp
         services/request_download.cpp
         services/request_upload.cpp
         services/transfer_data.cpp
