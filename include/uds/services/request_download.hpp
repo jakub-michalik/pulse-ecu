@@ -43,3 +43,7 @@ private:
 };
 
 } // namespace uds
+
+// addressAndLengthFormatIdentifier byte layout:
+// bits[7:4] = memory size parameter length (in bytes)
+// bits[3:0] = memory address parameter length (in bytes)
