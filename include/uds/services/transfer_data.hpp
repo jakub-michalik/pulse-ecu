@@ -40,3 +40,7 @@ private:
 };
 
 } // namespace uds
+
+// Transfer error callback: called when a block fails
+// Return true to retry, false to abort
+using TransferErrorCallback = bool (*)(uint8_t block_seq, void* ctx);
