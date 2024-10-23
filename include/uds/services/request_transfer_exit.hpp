@@ -39,3 +39,7 @@ private:
 };
 
 } // namespace uds
+
+// Example: use CRC to validate transfer integrity
+// The exit callback receives optional transfer request parameter (e.g. expected CRC)
+// Caller can verify CRC of received data against this value
