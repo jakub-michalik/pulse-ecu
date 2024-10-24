@@ -58,3 +58,12 @@ struct DtcEntry {
 
 } // namespace dtc
 } // namespace uds
+
+// Extended data record numbers (ISO 14229-1 Table D.3)
+namespace extended_data_record {
+    static constexpr uint8_t kFaultOccurrenceCounter  = 0x01;
+    static constexpr uint8_t kAgingCounter            = 0x02;
+    static constexpr uint8_t kPrefailureData          = 0x10;
+    static constexpr uint8_t kAllRecords              = 0xFF;
+    static constexpr uint8_t kOBDRecords              = 0xFE;
+}
