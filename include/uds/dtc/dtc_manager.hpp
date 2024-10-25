@@ -54,3 +54,12 @@ private:
 
 } // namespace dtc
 } // namespace uds
+
+    // Get the supported status bits for this ECU
+    uint8_t status_availability_mask() const { return m_status_availability; }
+
+    // Set which status bits are supported
+    void set_status_availability(uint8_t mask) { m_status_availability = mask; }
+
+private:
+    uint8_t m_status_availability = 0xFF;
