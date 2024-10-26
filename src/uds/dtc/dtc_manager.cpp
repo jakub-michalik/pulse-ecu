@@ -122,3 +122,6 @@ bool DtcManager::set_snapshot(uint32_t code, const uint8_t* data, size_t len)
 
 } // namespace dtc
 } // namespace uds
+
+// DTC severity is stored per-DTC in DtcEntry::severity
+// Use DtcSeverity constants when registering: register_dtc(code, DtcSeverity::kCheckImmediately)
