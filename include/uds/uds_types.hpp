@@ -121,3 +121,6 @@ namespace nrc {
     static constexpr uint8_t kTemperatureOutOfRange      = 0xF1;
     static constexpr uint8_t kChecksumError              = 0xF2;
 }
+
+// Forward declaration helper - include this in headers that need SessionType
+// without including the full uds_session.hpp
