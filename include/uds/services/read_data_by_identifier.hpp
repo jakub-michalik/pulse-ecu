@@ -49,3 +49,19 @@ private:
 };
 
 } // namespace uds
+
+// Standardized DID ranges (ISO 14229-1 Table C.1)
+namespace did {
+    static constexpr uint16_t kBootSoftwareId       = 0xF180;
+    static constexpr uint16_t kAppSoftwareId        = 0xF181;
+    static constexpr uint16_t kAppDataId            = 0xF182;
+    static constexpr uint16_t kBootSoftwareVersion  = 0xF183;
+    static constexpr uint16_t kAppSoftwareVersion   = 0xF184;
+    static constexpr uint16_t kAppDataVersion       = 0xF185;
+    static constexpr uint16_t kActiveSession        = 0xF186;
+    static constexpr uint16_t kVehicleManufId       = 0xF18A;
+    static constexpr uint16_t kSystemSupplierEcuId  = 0xF18C;
+    static constexpr uint16_t kVin                  = 0xF190;
+    static constexpr uint16_t kVehicleManufEcuHwNum = 0xF191;
+    static constexpr uint16_t kEcuSerialNumber      = 0xF18B;
+}
