@@ -57,3 +57,6 @@ bool WriteDataByIdentifierService::handle(
 }
 
 } // namespace uds
+
+// TODO: add security level check - writable DIDs may require security unlock
+// This is application-specific and should be done in the write_fn callback
