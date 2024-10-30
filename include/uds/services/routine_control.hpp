@@ -67,3 +67,6 @@ namespace routine_id {
     static constexpr uint16_t kEraseFlashSector    = 0x0301;
     static constexpr uint16_t kVerifyFlash         = 0x0302;
 }
+
+// Maximum result record size per routine response
+static constexpr size_t kMaxRoutineResultLen = 512;
