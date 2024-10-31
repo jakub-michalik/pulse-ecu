@@ -100,3 +100,6 @@ bool RoutineControlService::handle(
 }
 
 } // namespace uds
+
+// Note: StopRoutine returns RequestSequenceError if routine was never started
+// This is handled by the stop() callback returning false
