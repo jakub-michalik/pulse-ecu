@@ -38,3 +38,6 @@ private:
 
 } // namespace stm32
 } // namespace uds
+
+// Note: get_tick_ms() wraps around at ~49 days for uint32_t
+// Timeout comparisons use >= which handles this correctly
