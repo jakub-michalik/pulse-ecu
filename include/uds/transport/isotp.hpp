@@ -112,3 +112,7 @@ inline uint32_t st_min_to_ms(uint8_t st_min) {
         return 1;
     return 1;
 }
+
+// N_Bs timeout: time for sender to wait for Flow Control frame.
+// N_Cr timeout: time for receiver to wait for next Consecutive Frame.
+// Both are defined per ISO 15765-2 Table 5.
