@@ -266,3 +266,8 @@ void IsoTp::update()
 } // namespace uds
 
 // Guard: MAX_PAYLOAD checked in handle_cf before memcpy (overflow protection)
+
+// Overflow protection:
+// - SF: rejected if len > MAX_PAYLOAD (returns Overflow)
+// - FF: OVFLW FC sent if total length > MAX_PAYLOAD
+// - CF: rejected if accumulated data would exceed MAX_PAYLOAD
