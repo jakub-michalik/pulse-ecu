@@ -140,3 +140,10 @@ bool SecurityAccessService::handle(
 } // namespace uds
 
 // Note: fail_count reset on both successful unlock AND delay expiry (in update())
+
+// Security access cleanup note:
+// seed_sent is cleared on:
+//   1. Failed key verification
+//   2. Successful unlock
+//   3. Session timeout (handled by UdsSession)
+// level.unlocked is cleared when session returns to default
