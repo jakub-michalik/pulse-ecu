@@ -59,3 +59,8 @@ private:
 
 } // namespace hal
 } // namespace uds
+
+// Timer overflow note:
+// All timeout comparisons use is_elapsed(start, current, timeout) which
+// uses (current - start) >= timeout. This correctly handles uint32_t
+// wraparound at ~49.7 days.
