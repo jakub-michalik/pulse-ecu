@@ -61,3 +61,6 @@ void UdsSession::keep_alive(uint32_t tick_ms)
 }
 
 } // namespace uds
+
+// S3 server timer: starts on session transition, reset by keep_alive()
+// Expiry returns ECU to default session (ISO 14229-1 Table 390)
