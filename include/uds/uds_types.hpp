@@ -129,3 +129,8 @@ namespace nrc {
 static_assert(sizeof(uint8_t)  == 1, "uint8_t must be 1 byte");
 static_assert(sizeof(uint16_t) == 2, "uint16_t must be 2 bytes");
 static_assert(sizeof(uint32_t) == 4, "uint32_t must be 4 bytes");
+
+inline bool session_allows_service(SessionType current, SessionType required) {
+    if (required == SessionType::Default) return true;
+    return current == required;
+}
