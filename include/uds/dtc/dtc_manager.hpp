@@ -63,3 +63,8 @@ private:
 
 private:
     uint8_t m_status_availability = 0xFF;
+
+    bool set_freeze_frame(uint32_t code, uint8_t record_num,
+                          const uint8_t* data, size_t len);
+    size_t get_freeze_frame(uint32_t code, uint8_t record_num,
+                            uint8_t* out, size_t max_len) const;
