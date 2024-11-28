@@ -67,3 +67,12 @@ namespace extended_data_record {
     static constexpr uint8_t kAllRecords              = 0xFF;
     static constexpr uint8_t kOBDRecords              = 0xFE;
 }
+
+struct FreezeFrameRecord {
+    uint8_t record_number;
+    uint8_t data[64];
+    size_t  data_len;
+    bool    valid;
+};
+
+static constexpr size_t kMaxFreezeFrames = 2;
