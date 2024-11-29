@@ -125,3 +125,31 @@ bool DtcManager::set_snapshot(uint32_t code, const uint8_t* data, size_t len)
 
 // DTC severity is stored per-DTC in DtcEntry::severity
 // Use DtcSeverity constants when registering: register_dtc(code, DtcSeverity::kCheckImmediately)
+
+bool uds::dtc::DtcManager::set_freeze_frame(uint32_t code, uint8_t record_num,
+                                              const uint8_t* data, size_t len)
+{
+    (void)record_num;
+    DtcEntry* e = find(code);
+    if (!e || !data) return false;
+    size_t copy = (len < sizeof(e->snapshot)) ? len : sizeof(e->snapshot);
+    memcpy(e->snapshot, data, copy);
+    e->snapshot_len = copy;
+    return true;
+}
+
+size_t uds::dtc::DtcManager::get_freeze_frame(uint32_t code, uint8_t record_num,
+                                               uint8_t* out, size_t max_len) const
+{
+    (void)record_num;
+    for (size_t i = 0; i < m_count; ++i) {
+        if (m_dtcs[i].dtc_code == (code & 0xFFFFFF)) {
+            if (!m_dtcs[i].snapshot_len || !out) return 0;
+            size_t copy = (m_dtcs[i].snapshot_len < max_len)
+                          ? m_dtcs[i].snapshot_len : max_len;
+            memcpy(out, m_dtcs[i].snapshot, copy);
+            return copy;
+        }
+    }
+    return 0;
+}
