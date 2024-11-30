@@ -68,3 +68,10 @@ private:
                           const uint8_t* data, size_t len);
     size_t get_freeze_frame(uint32_t code, uint8_t record_num,
                             uint8_t* out, size_t max_len) const;
+
+    bool is_confirmed(uint32_t code) const {
+        for (size_t i = 0; i < m_count; ++i)
+            if (m_dtcs[i].dtc_code == (code & 0xFFFFFF))
+                return (m_dtcs[i].status & DtcStatus::kConfirmedDtc) != 0;
+        return false;
+    }
