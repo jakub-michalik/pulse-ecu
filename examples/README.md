@@ -26,3 +26,19 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 |-----------|-----------|----------|
 | STM32F407 | 500kbps   | HAL 1.7  |
 | STM32F103 | 250kbps   | HAL 1.1  |
+
+## Building
+
+```bash
+# Host build (no cross-compiler needed, for development)
+cmake -B build -DPULSE_BUILD_EXAMPLES=ON -DPULSE_BUILD_TESTS=ON
+cmake --build build
+
+# Cross-compile for STM32F4
+cmake -B build-arm \
+  -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake \
+  -DPULSE_BUILD_STM32=ON \
+  -DPULSE_BUILD_EXAMPLES=ON \
+  -DCORTEX_FLAGS="-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+cmake --build build-arm
+```
