@@ -19,3 +19,15 @@ static constexpr uint8_t kFdSfMaxLen  = 62;    // CAN FD single frame max
 
 } // namespace transport
 } // namespace uds
+
+// ISO-TP over CAN FD differences (ISO 15765-2:2016):
+//
+// Single Frame (SF):
+//   - Classic: byte 0 = 0x0N (N = len, max 7)
+//   - FD:      byte 0 = 0x00, byte 1 = N (N = 8..62)
+//
+// First Frame (FF):
+//   - Classic: byte 0 = 0x1x, byte 1 = len (max 4095)
+//   - FD long: byte 0 = 0x10, byte 1 = 0x00, bytes 2-5 = 32-bit len
+//
+// Flow Control, Consecutive Frame: same as classic CAN
