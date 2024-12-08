@@ -100,3 +100,6 @@ void UdsServer::send_nrc(ServiceId sid, NrcCode nrc)
 }
 
 } // namespace uds
+
+// Service lookup is O(n) linear scan. With kMaxServices=32 this is fast enough
+// for automotive ECU use case (typical 5-15 registered services).
