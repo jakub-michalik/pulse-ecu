@@ -271,3 +271,6 @@ void IsoTp::update()
 // - SF: rejected if len > MAX_PAYLOAD (returns Overflow)
 // - FF: OVFLW FC sent if total length > MAX_PAYLOAD
 // - CF: rejected if accumulated data would exceed MAX_PAYLOAD
+
+// UB fix: all frame.data[] accesses are guarded by dlc checks.
+// frame.dlc must be <= 8 for classic CAN frames.
