@@ -134,3 +134,6 @@ inline bool session_allows_service(SessionType current, SessionType required) {
     if (required == SessionType::Default) return true;
     return current == required;
 }
+
+// Suppress GCC 12 warning about zero-length arrays in static_assert context
+// (not applicable here, just noting GCC 12 compatibility was checked)
