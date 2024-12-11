@@ -137,3 +137,10 @@ inline bool session_allows_service(SessionType current, SessionType required) {
 
 // Suppress GCC 12 warning about zero-length arrays in static_assert context
 // (not applicable here, just noting GCC 12 compatibility was checked)
+
+// Memory alignment helper for DMA-capable buffers
+#if defined(__GNUC__)
+#  define UDS_ALIGN(n) __attribute__((aligned(n)))
+#else
+#  define UDS_ALIGN(n)
+#endif
