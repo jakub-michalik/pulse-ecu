@@ -40,3 +40,6 @@ bool EcuResetService::handle(
 }
 
 } // namespace uds
+
+// Warning suppression: ResetType parameter is intentionally passed through
+// to the user callback even though the server doesn't use it after sending response.
