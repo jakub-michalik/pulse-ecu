@@ -35,3 +35,6 @@ bool TesterPresentService::handle(
 }
 
 } // namespace uds
+
+// Note: keep_alive() call uses tick=0 as placeholder.
+// In production, pass real HAL_GetTick() value via UdsServer::process().
