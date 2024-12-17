@@ -20,3 +20,7 @@ struct Version {
 };
 
 } // namespace uds
+
+// Include this header to access version information:
+// #include "uds/version.hpp"
+// const char* ver = uds::Version::string; // "1.0.0"
