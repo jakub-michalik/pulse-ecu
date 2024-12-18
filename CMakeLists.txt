@@ -55,3 +55,22 @@ if(PULSE_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
+
+# Install targets
+include(GNUInstallDirs)
+
+install(TARGETS pulse-ecu
+    EXPORT pulse-ecu-targets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(DIRECTORY include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(EXPORT pulse-ecu-targets
+    FILE pulse-ecu-config.cmake
+    NAMESPACE pulse::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pulse-ecu
+)
