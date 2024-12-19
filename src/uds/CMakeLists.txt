@@ -26,4 +26,5 @@ target_sources(pulse-ecu
         services/io_control_by_identifier.cpp
         dtc/dtc_manager.cpp
         utils/crc.cpp
+        security/seed_key.cpp
 )
