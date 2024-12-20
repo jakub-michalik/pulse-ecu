@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(pulse-ecu
-    VERSION 0.9.0
+    VERSION 1.0.0
     DESCRIPTION "UDS library for STM32 microcontrollers"
     LANGUAGES CXX
 )
@@ -13,7 +13,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(PULSE_BUILD_EXAMPLES "Build examples" OFF)
 option(PULSE_BUILD_TESTS    "Build tests"    OFF)
-option(PULSE_BUILD_STM32    "Include STM32 HAL driver" OFF)
+option(PULSE_BUILD_STM32    "Include STM32 HAL drivers" OFF)
 
 add_library(pulse-ecu STATIC)
 
@@ -28,10 +28,8 @@ target_compile_features(pulse-ecu PUBLIC cxx_std_14)
 if(CMAKE_CROSSCOMPILING OR PULSE_BUILD_STM32)
     target_compile_options(pulse-ecu PRIVATE
         -Wall -Wextra -Wpedantic
-        -fno-exceptions
-        -fno-rtti
-        -ffunction-sections
-        -fdata-sections
+        -fno-exceptions -fno-rtti
+        -ffunction-sections -fdata-sections
     )
 else()
     if(MSVC)
@@ -56,13 +54,12 @@ if(PULSE_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-# Install targets
+# Install
 include(GNUInstallDirs)
 
 install(TARGETS pulse-ecu
     EXPORT pulse-ecu-targets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 install(DIRECTORY include/
