@@ -116,3 +116,7 @@ inline uint32_t st_min_to_ms(uint8_t st_min) {
 // N_Bs timeout: time for sender to wait for Flow Control frame.
 // N_Cr timeout: time for receiver to wait for next Consecutive Frame.
 // Both are defined per ISO 15765-2 Table 5.
+
+// Review note: IsoTp::send() returns Pending for multi-frame transfers.
+// Caller must call update() periodically and process incoming FC frames
+// via process_frame() to complete the transmission.
