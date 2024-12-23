@@ -43,3 +43,11 @@ All notable changes to pulse-ecu are documented here.
 ### Notes
 - C++14 standard, no dynamic allocation, no exceptions
 - Tested on STM32F407 @ 500kbps CAN
+
+## [0.9.0] - 2024-11-05
+
+Initial pre-release with core functionality.
+
+## [0.1.0] - 2024-07-29
+
+Initial development started.
